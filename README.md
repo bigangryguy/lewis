@@ -12,7 +12,7 @@ Just fork it. No real need to contribute to a learning project like this.
 
 ## Authors
 
-* __David Wilcox__ - *All work so far* - [https://twitter.com/davidtwilcox](@davidtwilcox)
+* __David Wilcox__ - *All work so far* - [@davidtwilcox](https://twitter.com/davidtwilcox)
 
 ## License
 
