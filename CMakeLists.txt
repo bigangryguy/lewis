@@ -4,6 +4,6 @@
 cmake_minimum_required (VERSION 3.8)
 
 # Add source to this project's executable.
-add_executable (Lewis "main.cpp" "vec3.h")
+add_executable (Lewis "main.cpp" "ppmwriter.cpp")
 
 # TODO: Add tests and install targets if needed.
