@@ -2,17 +2,40 @@
 #include "ray.h"
 #include "ppmwriter.h"
 
-lewis::Vec3 color(const lewis::Ray& r)
+double HitSphere(const lewis::Vec3& center, double radius, const lewis::Ray& r)
 {
-    auto unit_direction = lewis::unit_vector(r.Direction());
-    auto t = 0.5 * (unit_direction.y() + 1.0);
-    return (1.0 - t) * lewis::Vec3{1.0, 1.0, 1.0} + t * lewis::Vec3{ 0.5, 0.7, 1.0 };
+    const auto oc = r.Origin() - center;
+    const auto a = dot(r.Direction(), r.Direction());
+    const auto b = 2.0 * dot(oc, r.Direction());
+    const auto c = dot(oc, oc) - radius * radius;
+    const auto discriminant = b * b - 4 * a * c;
+    if (discriminant < 0)
+    {
+        return -1.0;
+    }
+    else
+    {
+        return (-b - sqrt(discriminant)) / (2.0 * a);
+    }
+}
+
+lewis::Vec3 Color(const lewis::Ray& r)
+{
+    const auto t = HitSphere({ 0.0, 0.0, -1.0 }, 0.5, r);
+    if (t > 0.0)
+    {
+        const auto N = lewis::unit_vector(r.PointAtParameter(t) - lewis::Vec3{0.0, 0.0, -1.0 });
+        return 0.5 * lewis::Vec3{ N.x() + 1.0, N.y() + 1.0, N.z() + 1.0 };
+    }
+    const auto unit_direction = lewis::unit_vector(r.Direction());
+    const auto t2 = 0.5 * (unit_direction.y() + 1.0);
+    return (1.0 - t2) * lewis::Vec3{1.0, 1.0, 1.0} + t2 * lewis::Vec3{ 0.5, 0.7, 1.0 };
 }
 
 int main()
 {
-    constexpr int nx = 200;
-    constexpr int ny = 100;
+    constexpr int nx = 800;
+    constexpr int ny = 400;
 
     lewis::Vec3Matrix sample{ny};
 
@@ -26,11 +49,10 @@ int main()
         sample[y] = std::vector<lewis::Vec3>{nx};
         for (int i = 0; i < nx; i++)
         {
-            double u = double(i) / double(nx);
-            double v = double(j) / double(ny);
+            const double u = double(i) / double(nx);
+            const double v = double(j) / double(ny);
             lewis::Ray r{ origin, lower_left_corner + u * horizontal + v * vertical };
-            lewis::Vec3 col = color(r);
-            sample[y][i] = col;
+            sample[y][i] = Color(r);
         }
     }
 
