@@ -4,7 +4,13 @@
 cmake_minimum_required (VERSION 3.8)
 project(lewis)
 
-# Add source to this project's executable.
-add_executable (Lewis "main.cpp" "ppmwriter.cpp" ray.cpp ray.h)
+set(SOURCE_CODE
+        main.cpp
+        ppmwriter.cpp
+        ray.cpp
+        ray.h
+        hitable.h
+        sphere.cpp sphere.h hitablelist.cpp hitablelist.h vec3.cpp)
 
-# TODO: Add tests and install targets if needed.
+# Add source to this project's executable.
+add_executable (Lewis ${SOURCE_CODE})
