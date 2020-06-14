@@ -3,6 +3,7 @@
 #include "hitable.h"
 #include "hitablelist.h"
 #include "sphere.h"
+#include "camera.h"
 #include "ppmwriter.h"
 #include <vector>
 #include <memory>
@@ -24,8 +25,9 @@ lewis::Vec3 Color(const lewis::Ray& r, const lewis::HitableList& world)
 
 int main()
 {
-    constexpr int nx = 800;
-    constexpr int ny = 400;
+    constexpr int nx = 1600;
+    constexpr int ny = 800;
+    constexpr int ns = 16;
 
     lewis::Vec3Matrix sample{ny};
 
@@ -40,6 +42,7 @@ int main()
     };
 
     lewis::HitableList world{ hitList };
+    lewis::Camera camera{};
 
     for (int j = 0; j < ny; j++)
     {
@@ -47,11 +50,17 @@ int main()
         sample[y] = std::vector<lewis::Vec3>{nx};
         for (int i = 0; i < nx; i++)
         {
-            const double u = double(i) / double(nx);
-            const double v = double(j) / double(ny);
-            const lewis::Ray r{ origin, lower_left_corner + u * horizontal + v * vertical };
+            lewis::Vec3 color{ 0.0, 0.0, 0.0 };
+            for (int s = 0; s < ns; s++)
+            {
+                const double u = double(i + drand48()) / double(nx);
+                const double v = double(j + drand48()) / double(ny);
+                const lewis::Ray r = camera.GetRay(u, v);
+                color += Color(r, world);
+            }
+            color /= double(ns);
 
-            sample[y][i] = Color(r, world);
+            sample[y][i] = color;
         }
     }
 
