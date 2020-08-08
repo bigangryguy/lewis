@@ -16,6 +16,7 @@ namespace lewis
     class Hitable
     {
     public:
-        virtual bool Hit(const Ray& r, double t_min, double t_max, HitRecord& rec) const = 0;
+        virtual bool Hit(const Ray& r, double t_min,
+                       double t_max, HitRecord& rec) const = 0;
     };
 }

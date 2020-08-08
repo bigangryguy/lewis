@@ -10,17 +10,26 @@ namespace lewis
     {
     public:
         Camera()
-            : origin_{ 0.0, 0.0, 0.0 },
-              lowerLeftCorner_{ -2.0, -1.0, -1.0 },
-              horizontal_{ 4.0, 0.0, 0.0 },
-              vertical_{ 0.0, 2.0, 0.0 }
+            : Camera({ 0.0, 0.0, 0.0 },
+              { -2.0, -1.0, -1.0 },
+              { 4.0, 0.0, 0.0 },
+              { 0.0, 2.0, 0.0 })
+        {};
+        Camera(const Vec3& origin,
+               const Vec3& lowerLeftCorner,
+               const Vec3& horizontal,
+               const Vec3& vertical)
+            : origin_{origin},
+              lowerLeftCorner_{lowerLeftCorner},
+              horizontal_{horizontal},
+              vertical_{vertical}
         {};
 
         Ray GetRay(double u, double v) const;
     private:
-        Vec3 origin_;
-        Vec3 lowerLeftCorner_;
-        Vec3 horizontal_;
-        Vec3 vertical_;
+        const Vec3 origin_;
+        const Vec3 lowerLeftCorner_;
+        const Vec3 horizontal_;
+        const Vec3 vertical_;
     };
 }

@@ -14,9 +14,10 @@ namespace lewis
               radius_{ radius }
         {}
 
-        bool Hit(const Ray& r, double tMin, double tMax, HitRecord& rec) const override;
+        bool Hit(const Ray& r, double tMin,
+                 double tMax, HitRecord& rec) const override;
     private:
-        Vec3 center_;
-        double radius_;
+        const Vec3 center_;
+        const double radius_;
     };
 }

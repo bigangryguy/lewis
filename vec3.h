@@ -7,50 +7,53 @@
 
 namespace lewis
 {
-	class Vec3
-	{
-	private:
-		double e_[3];
-	public:
+    class Vec3
+    {
+    private:
+        double e_[3];
+    public:
         Vec3(double e0, double e1, double e2)
             : e_{e0, e1, e2}
         {
         }
-		Vec3() : Vec3(0.0, 0.0, 0.0) {}
+        Vec3() : Vec3(0.0, 0.0, 0.0) {}
 
-		inline double x() const { return e_[0]; }
-		inline double y() const { return e_[1]; }
-		inline double z() const { return e_[2]; }
-		inline double r() const { return e_[0]; }
-		inline double g() const { return e_[1]; }
-		inline double b() const { return e_[2]; }
+        inline double x() const { return e_[0]; }
+        inline double y() const { return e_[1]; }
+        inline double z() const { return e_[2]; }
+        inline double r() const { return e_[0]; }
+        inline double g() const { return e_[1]; }
+        inline double b() const { return e_[2]; }
 
-		inline const Vec3& operator+() const { return *this; }
-		inline Vec3 operator-() const { return {-e_[0], -e_[1], -e_[2]}; }
-		inline double operator[](int i) const { return e_[i]; }
-		inline double& operator[](int i) { return e_[i]; }
+        inline const Vec3& operator+() const { return *this; }
+        inline Vec3 operator-() const
+        {
+          return {-e_[0], -e_[1], -e_[2]};
+        }
+        inline double operator[](int i) const { return e_[i]; }
+        inline double& operator[](int i) { return e_[i]; }
 
-		inline Vec3& operator+=(const Vec3& v2);
-		inline Vec3& operator-=(const Vec3& v2);
-		inline Vec3& operator*=(const Vec3& v2);
-		inline Vec3& operator/=(const Vec3& v2);
-		inline Vec3& operator*=(double t);
-		inline Vec3& operator/=(double t);
+        inline Vec3& operator+=(const Vec3& v2);
+        inline Vec3& operator-=(const Vec3& v2);
+        inline Vec3& operator*=(const Vec3& v2);
+        inline Vec3& operator/=(const Vec3& v2);
+        inline Vec3& operator*=(double t);
+        inline Vec3& operator/=(double t);
 
-		inline double Length() const
-		{
-			return sqrt(e_[0] * e_[0] + e_[1] * e_[1] + e_[2] * e_[2]);
-		}
+        inline double Length() const
+        {
+                return sqrt(e_[0] * e_[0] + e_[1] * e_[1] + e_[2] * e_[2]);
+        }
 
-		inline double SquaredLength() const
-		{
-			return e_[0] * e_[0] + e_[1] * e_[1] + e_[2] * e_[2];
-		}
+        inline double SquaredLength() const
+        {
+                return e_[0] * e_[0] + e_[1] * e_[1] + e_[2] * e_[2];
+        }
 
-		inline void MakeUnitVector();
-	};
+        inline void MakeUnitVector();
+    };
 
-    typedef std::vector<std::vector<Vec3>> Vec3Matrix;
+    using Vec3Matrix = std::vector<std::vector<Vec3>>;
 
     inline std::istream& operator>>(std::istream& is, Vec3& t)
     {
@@ -168,7 +171,10 @@ namespace lewis
 
     inline void Vec3::MakeUnitVector()
     {
-        double k = 1.0 / sqrt(this->e_[0] * this->e_[0] + this->e_[1] * this->e_[1] + this->e_[2] * this->e_[2]);
+        double k = 1.0 / sqrt(
+                           this->e_[0] * this->e_[0] +
+                           this->e_[1] * this->e_[1] +
+                           this->e_[2] * this->e_[2]);
         this->e_[0] *= k;
         this->e_[1] *= k;
         this->e_[2] *= k;

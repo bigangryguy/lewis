@@ -15,7 +15,8 @@ namespace lewis
             : list_{ list }
         {}
 
-        virtual bool Hit(const Ray& r, double tMin, double tMax, HitRecord& rec) const;
+        virtual bool Hit(const Ray& r, double tMin,
+                         double tMax, HitRecord& rec) const;
     private:
         std::vector<std::shared_ptr<Hitable>> list_;
     };

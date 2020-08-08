@@ -4,7 +4,8 @@
 
 namespace lewis
 {
-    bool HitableList::Hit(const Ray& r, double tMin, double tMax, HitRecord& rec) const
+    bool HitableList::Hit(const Ray& r, double tMin,
+                      double tMax, HitRecord& rec) const
     {
         HitRecord tempRec;
         bool hitAnything = false;

@@ -8,7 +8,6 @@ set(SOURCE_CODE
         main.cpp
         ppmwriter.cpp
         vec3.h
-        ray.cpp
         ray.h
         hitable.h
         sphere.cpp
